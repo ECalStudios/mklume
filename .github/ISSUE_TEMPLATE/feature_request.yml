@@ -1,0 +1,79 @@
+name: Feature request
+description: Suggest an idea or improvement for MkLume
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting an improvement for MkLume.
+
+        Please use this form for feature ideas, workflow improvements, UI/UX suggestions, and documentation-related improvements.
+
+        Try to describe the problem first, not only the solution.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Explain the problem, limitation, or workflow pain point.
+      placeholder: "Example: When working with many documentation pages, it is hard to quickly find broken internal links."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would you like MkLume to do?
+      description: Describe the feature or improvement you would like to see.
+      placeholder: "Example: Add a link checker panel that scans Markdown files and shows broken internal links."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or workarounds
+      description: Is there a workaround today, or another way this could be solved?
+      placeholder: "Example: I can manually search links, but it is slow and easy to miss something."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area of MkLume
+      description: Which part of MkLume does this relate to?
+      options:
+        - Project setup
+        - Markdown editing
+        - Preview
+        - Navigation
+        - Assets/images
+        - MkDocs configuration
+        - Themes/templates
+        - Build/export
+        - Documentation
+        - UI/UX
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Add screenshots, examples, mockups, or extra notes if useful.
+      placeholder: "Drag screenshots here if they help explain the idea."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked that this feature request is not already reported.
+          required: true
+        - label: This request is about MkLume, not general MkDocs or Material for MkDocs support.
+          required: true
