@@ -1,0 +1,94 @@
+name: Bug report
+description: Report a problem with MkLume
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a problem with MkLume.
+
+        Please use this form for bugs, crashes, broken behavior, or something that does not work as expected.
+
+        Do not include passwords, tokens, private keys, or personal/private files.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the problem clearly.
+      placeholder: "Example: MkLume crashes when I open an existing MkDocs project."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+      description: Tell us what you expected MkLume to do instead.
+      placeholder: "Example: The project should open and show the documentation files."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the steps needed to reproduce the issue.
+      placeholder: |
+        1. Open MkLume
+        2. Click Open Existing Project
+        3. Select my MkDocs project folder
+        4. See the error
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: MkLume version
+      description: Which version of MkLume are you using?
+      placeholder: "Example: 1.0.0"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      description: Which operating system are you using?
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Add screenshots, logs, or error messages if they help explain the issue.
+      placeholder: "Paste logs here, or drag screenshots into the issue."
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Add anything else that may help.
+      placeholder: "Example: This only happens with one specific project."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Before submitting
+      options:
+        - label: I checked that this issue is not already reported.
+          required: true
+        - label: I did not include passwords, tokens, private keys, or sensitive personal data.
+          required: true
