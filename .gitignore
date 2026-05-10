@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+src-tauri/target/
+
+# Documentation build output
+mklume-docs/site/
+
+# Environment files
+.env
+.env.*
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Vite
+.vite/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local config
+*.local
+
+# Python (for MkDocs)
+__pycache__/
+.venv/
+venv/
+*.pyc
+
+# Rust
+target/
+
+# Release artifacts (installers go to GitHub Releases, not source repo)
+release/artifacts/
+
+# MkDocs runner sidecar build artifacts
+tools/mkdocs-runner/.venv/
+tools/mkdocs-runner/build/
+tools/mkdocs-runner/dist/
+tools/mkdocs-runner/__pycache__/
+tools/mkdocs-runner/*.spec
+
+# Claude worktree metadata
+.claude/
+mklume-docs/*.zip

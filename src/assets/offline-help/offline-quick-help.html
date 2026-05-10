@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MkLume — Quick Help</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --bg-card: #222240;
+    --text: #e0e0e8;
+    --text-dim: #9898b0;
+    --accent: #6c8cff;
+    --accent-hover: #8aa4ff;
+    --border: #333355;
+    --heading: #f0f0ff;
+    --code-bg: #2a2a48;
+    --tip-bg: #1a3a2a;
+    --tip-border: #2e8b57;
+    --warn-bg: #3a2a1a;
+    --warn-border: #cc8833;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f8f9fc;
+      --bg-card: #ffffff;
+      --text: #333344;
+      --text-dim: #666680;
+      --accent: #3f51b5;
+      --accent-hover: #5c6bc0;
+      --border: #dde0e8;
+      --heading: #1a1a2e;
+      --code-bg: #f0f0f5;
+      --tip-bg: #e8f5e9;
+      --tip-border: #4caf50;
+      --warn-bg: #fff8e1;
+      --warn-border: #ff9800;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 24px 32px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h1 { color: var(--heading); font-size: 1.8em; margin-bottom: 4px; }
+  h2 { color: var(--heading); font-size: 1.3em; margin: 28px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { color: var(--heading); font-size: 1.05em; margin: 18px 0 8px; }
+  p { margin-bottom: 10px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { color: var(--accent-hover); text-decoration: underline; }
+  code {
+    font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+  kbd {
+    display: inline-block;
+    padding: 2px 7px;
+    font-family: inherit;
+    font-size: 0.85em;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 var(--border);
+  }
+  .subtitle { color: var(--text-dim); font-size: 0.95em; margin-bottom: 20px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .tip {
+    background: var(--tip-bg);
+    border-left: 3px solid var(--tip-border);
+    padding: 10px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-size: 0.92em;
+  }
+  .warn {
+    background: var(--warn-bg);
+    border-left: 3px solid var(--warn-border);
+    padding: 10px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 12px 0;
+    font-size: 0.92em;
+  }
+  ul { padding-left: 20px; margin-bottom: 10px; }
+  li { margin-bottom: 4px; }
+  .shortcut-table { width: 100%; border-collapse: collapse; margin: 10px 0 16px; }
+  .shortcut-table th, .shortcut-table td {
+    text-align: left;
+    padding: 6px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92em;
+  }
+  .shortcut-table th { color: var(--text-dim); font-weight: 600; font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.3px; }
+  .footer { margin-top: 32px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--text-dim); font-size: 0.85em; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>MkLume Quick Help</h1>
+<p class="subtitle">Offline reference — no internet required</p>
+
+<div class="tip">
+  For complete documentation, visit <a href="https://www.ecalstudios.com/mklume/" target="_blank">www.ecalstudios.com/mklume</a>
+</div>
+
+<h2>What is MkLume?</h2>
+<p>MkLume is a visual desktop editor for <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">MkDocs Material</a> documentation. It runs locally on your computer and edits your project files directly.</p>
+
+<h2>Creating a Project</h2>
+<div class="card">
+  <h3>New Project</h3>
+  <p>Click <strong>New Project</strong> on the welcome screen, or use <kbd>Ctrl</kbd>+<kbd>N</kbd>. Enter a site name, choose a folder, and MkLume will create a starter <code>mkdocs.yml</code> and <code>docs/index.md</code> for you.</p>
+</div>
+<div class="card">
+  <h3>Open Existing Project</h3>
+  <p>Click <strong>Open Existing Project</strong> or use <kbd>Ctrl</kbd>+<kbd>O</kbd>. Select any folder that contains a <code>mkdocs.yml</code> file. Recent projects appear on the welcome screen for quick access.</p>
+</div>
+
+<h2>Editor Modes</h2>
+<div class="card">
+  <h3>Markdown Mode (<kbd>Ctrl</kbd>+<kbd>1</kbd>)</h3>
+  <p>Raw Markdown editing with a toolbar and keyboard shortcuts. Use the Insert menu for admonitions, tables, tabs, grid cards, and more.</p>
+</div>
+<div class="card">
+  <h3>Visual Mode (<kbd>Ctrl</kbd>+<kbd>2</kbd>)</h3>
+  <p>Block-based visual editing. Add and edit headings, paragraphs, images, code blocks, admonitions, lists, tables, and more without writing Markdown.</p>
+</div>
+<div class="card">
+  <h3>Preview Mode (<kbd>Ctrl</kbd>+<kbd>3</kbd>)</h3>
+  <p>Rendered preview of the current page. Toggle between <strong>Page Preview</strong> (content only) and <strong>Site Preview</strong> (full Material site layout with header, sidebar, and TOC).</p>
+</div>
+<div class="card">
+  <h3>Split View (<kbd>Ctrl</kbd>+<kbd>4</kbd>)</h3>
+  <p>Side-by-side editing and preview. Choose any combination: Markdown or Visual on the left, Page or Site Preview on the right.</p>
+</div>
+
+<h2>Images &amp; Assets</h2>
+<p>Drag and drop images onto the editor. MkLume copies them to <code>docs/assets/</code> and inserts the Markdown image syntax automatically. Supported formats: PNG, JPG, GIF, SVG, WebP.</p>
+
+<h2>Smart Internal Links</h2>
+<p>Type <code>[[</code> or <code>[Text](</code> in Markdown mode to trigger autocomplete. Select a page and MkLume inserts a link with the correct relative path. You can also use <strong>Insert &gt; Internal Link</strong> to browse all pages.</p>
+
+<h2>Site Settings</h2>
+<p>Open <strong>View &gt; Site Settings</strong> to edit your <code>mkdocs.yml</code> visually. Configure site identity, theme, Material features, palette colors, plugins, extensions, and extras without editing YAML directly.</p>
+
+<h2>Build &amp; Export</h2>
+<div class="card">
+  <p>Open the <strong>Build Panel</strong> from the toolbar or <strong>Tools &gt; Build Site</strong>.</p>
+  <ul>
+    <li><strong>Build to Folder</strong> — generates <code>site/</code> directory</li>
+    <li><strong>Build to ZIP</strong> — creates a distributable archive</li>
+    <li><strong>Build Both</strong> — folder and ZIP</li>
+  </ul>
+  <p>Upload the output to any static hosting provider. MkLume never needs your hosting credentials.</p>
+</div>
+<div class="tip">
+  MkLume includes a bundled MkDocs runtime. No separate Python or MkDocs installation is needed for building.
+</div>
+
+<h2>Git Sync</h2>
+<p>Open <strong>Tools &gt; Git Sync</strong> to commit and push your changes. MkLume detects your Git repository, shows changed files, and lets you write a commit message. Authentication uses your local Git configuration (SSH keys, credential managers).</p>
+
+<h2>GitHub Pages Deploy Assistant</h2>
+<p>Open <strong>Tools &gt; GitHub Pages Deploy Assistant</strong>. MkLume generates a GitHub Actions workflow file — no tokens, no passwords. After generating the workflow, commit and push your changes, then enable GitHub Pages in your repository settings with "GitHub Actions" as the source.</p>
+
+<h2>Backups &amp; Recovery</h2>
+<ul>
+  <li><strong>Autosave</strong> — saves automatically after a configurable delay.</li>
+  <li><strong>Backup before save</strong> — creates a timestamped copy in <code>.mklume/backups/</code>.</li>
+  <li><strong>Recovery drafts</strong> — periodic snapshots in <code>.mklume/recovery/</code>, restored if unsaved work is detected.</li>
+</ul>
+
+<h2>Keyboard Shortcuts</h2>
+<table class="shortcut-table">
+  <tr><th>Action</th><th>Shortcut</th></tr>
+  <tr><td>Save</td><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td></tr>
+  <tr><td>Open project</td><td><kbd>Ctrl</kbd>+<kbd>O</kbd></td></tr>
+  <tr><td>New page / project</td><td><kbd>Ctrl</kbd>+<kbd>N</kbd></td></tr>
+  <tr><td>Close project</td><td><kbd>Ctrl</kbd>+<kbd>W</kbd></td></tr>
+  <tr><td>Command palette</td><td><kbd>Ctrl</kbd>+<kbd>K</kbd> or <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd></td></tr>
+  <tr><td>Markdown mode</td><td><kbd>Ctrl</kbd>+<kbd>1</kbd></td></tr>
+  <tr><td>Visual mode</td><td><kbd>Ctrl</kbd>+<kbd>2</kbd></td></tr>
+  <tr><td>Preview mode</td><td><kbd>Ctrl</kbd>+<kbd>3</kbd></td></tr>
+  <tr><td>Split view</td><td><kbd>Ctrl</kbd>+<kbd>4</kbd></td></tr>
+  <tr><td>Find</td><td><kbd>Ctrl</kbd>+<kbd>F</kbd></td></tr>
+  <tr><td>Find and replace</td><td><kbd>Ctrl</kbd>+<kbd>H</kbd></td></tr>
+  <tr><td>Bold</td><td><kbd>Ctrl</kbd>+<kbd>B</kbd></td></tr>
+  <tr><td>Italic</td><td><kbd>Ctrl</kbd>+<kbd>I</kbd></td></tr>
+  <tr><td>Inline code</td><td><kbd>Ctrl</kbd>+<kbd>E</kbd></td></tr>
+  <tr><td>Code block</td><td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>K</kbd></td></tr>
+  <tr><td>Settings</td><td><kbd>Ctrl</kbd>+<kbd>,</kbd></td></tr>
+</table>
+
+<h2>Quick Troubleshooting</h2>
+<div class="card">
+  <h3>MkDocs runtime error</h3>
+  <p>MkLume includes a bundled MkDocs runtime. If it fails to start, try reinstalling MkLume. If the problem persists, report it at <a href="https://github.com/ECalStudios/mklume/issues">GitHub Issues</a>.</p>
+</div>
+<div class="card">
+  <h3>Build failed</h3>
+  <p>Check the build output log for errors. Common causes: missing extensions, invalid YAML in mkdocs.yml, or broken image paths.</p>
+</div>
+<div class="card">
+  <h3>Images not showing in preview</h3>
+  <p>Make sure the image file exists in <code>docs/assets/</code> and the Markdown path is correct. External URLs require internet.</p>
+</div>
+<div class="card">
+  <h3>Git push failed</h3>
+  <p>Check your Git authentication (SSH keys or credential manager). Make sure you have push access to the remote repository.</p>
+</div>
+
+<h2>Privacy</h2>
+<p>MkLume is local-first. It edits files on your computer, does not require cloud login, does not ask for tokens or credentials, and does not include built-in telemetry. Backups and recovery data are stored locally in your project directory.</p>
+
+<div class="footer">
+  <p>MkLume — Created by Enrique Cal, ECal Studios</p>
+  <p>Licensed under GPLv3 · <a href="https://www.ecalstudios.com/mklume/" target="_blank">Full Documentation</a> · <a href="https://github.com/ECalStudios/mklume" target="_blank">GitHub</a> · <a href="https://github.com/ECalStudios/mklume/issues" target="_blank">Report an Issue</a> · <a href="https://ko-fi.com/ecalstudios" target="_blank">Support Development</a></p>
+</div>
+
+</body>
+</html>

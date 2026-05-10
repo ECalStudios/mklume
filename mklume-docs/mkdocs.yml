@@ -1,0 +1,101 @@
+site_name: MkLume
+site_description: A visual desktop editor for MkDocs Material documentation.
+site_url: https://www.ecalstudios.com/mklume/
+repo_url: https://github.com/ECalStudios/mklume
+repo_name: ECalStudios/mklume
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ECalStudios/mklume
+      name: MkLume on GitHub
+    - icon: fontawesome/solid/heart
+      link: https://ko-fi.com/ecalstudios
+      name: Support Development on Ko-fi
+
+copyright: "Copyright &copy; 2026 ECal Studios"
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started.md
+    - Installation: installation.md
+    - Your First Project: first-project.md
+    - Open Existing Project: open-existing-project.md
+  - Editor Modes:
+    - Overview: editor-modes.md
+    - Markdown Mode: markdown-mode.md
+    - Visual Editor: visual-editor.md
+    - Preview & Site Preview: preview-and-site-preview.md
+    - Split View: split-view.md
+  - Features:
+    - Images & Assets: assets-images.md
+    - Internal Links: internal-links.md
+    - Site Settings: site-settings.md
+    - Navigation Editor: navigation-editor.md
+    - Extras & Integrations: extras-integrations.md
+    - Project Health: project-health.md
+  - Build & Deploy:
+    - Build & Export: build-export.md
+    - Git Sync: git-sync.md
+    - GitHub Pages Deploy: github-pages-deploy-assistant.md
+  - Reference:
+    - Keyboard Shortcuts: keyboard-shortcuts.md
+    - Settings: settings.md
+    - Backups & Recovery: backups-recovery.md
+    - Offline Quick Help: offline-quick-help.md
+    - Troubleshooting: troubleshooting.md
+    - FAQ: faq.md
+  - About:
+    - Security & Privacy: security-privacy.md
+    - Open Source: open-source.md
+    - Contributing: contributing.md
+    - Changelog: changelog.md
+    - Support: support.md
+    - Publishing the Docs: publishing-mklume-docs.md

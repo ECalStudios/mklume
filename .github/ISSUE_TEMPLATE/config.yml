@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://www.ecalstudios.com/mklume/
+    about: Read the full MkLume documentation.
+  - name: Support Development
+    url: https://ko-fi.com/ecalstudios
+    about: Support MkLume development on Ko-fi.

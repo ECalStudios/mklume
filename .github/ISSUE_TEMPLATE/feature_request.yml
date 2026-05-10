@@ -1,0 +1,33 @@
+name: Feature Request
+description: Suggest a new feature or improvement for MkLume.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for MkLume? Describe what you'd like and why it would be useful.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the feature
+      description: What would you like MkLume to do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why is this useful?
+      description: How would this help your workflow?
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Have you tried any workarounds or alternative approaches?
+    validations:
+      required: false

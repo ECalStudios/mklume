@@ -1,0 +1,59 @@
+{
+  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/dev/crates/tauri-cli/schema.json",
+  "productName": "MkLume",
+  "version": "1.0.0",
+  "identifier": "com.ecalstudios.mklume",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "MkLume",
+        "width": 1200,
+        "height": 780,
+        "minWidth": 800,
+        "minHeight": 560,
+        "center": true,
+        "decorations": true,
+        "resizable": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**/*"]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "externalBin": [
+      "binaries/mkdocs-runner"
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "publisher": "ECal Studios",
+    "copyright": "Copyright © 2026 ECal Studios. Created by Enrique Cal.",
+    "category": "DeveloperTool",
+    "shortDescription": "A visual desktop editor for MkDocs Material documentation.",
+    "longDescription": "MkLume is a local-first desktop workspace for creating, editing, previewing, and managing MkDocs Material documentation. It runs entirely on your machine — no accounts, no cloud, no subscriptions.",
+    "windows": {
+      "nsis": {
+        "displayLanguageSelector": false,
+        "installerIcon": "icons/icon.ico"
+      }
+    }
+  }
+}

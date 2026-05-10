@@ -1,0 +1,61 @@
+/*
+ * MkLume
+ * Copyright © 2026 ECal Studios. Created by Enrique Cal.
+ * Licensed under the GNU General Public License v3.0.
+ */
+
+/**
+ * MkLume branded icon component.
+ *
+ * Renders the app icon inline as SVG — a rounded indigo square with a white
+ * document symbol featuring a folded corner and content lines.
+ */
+
+interface MkLumeIconProps {
+  /** Icon width/height in px (square). Default 32. */
+  size?: number;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+function MkLumeIcon({ size = 32, className, style }: MkLumeIconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      style={style}
+    >
+      {/* Background rounded square */}
+      <defs>
+        <linearGradient id="mklume-bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#6366F1" />
+          <stop offset="100%" stopColor="#818CF8" />
+        </linearGradient>
+      </defs>
+      <rect width="64" height="64" rx="14" fill="url(#mklume-bg)" />
+
+      {/* Document shadow */}
+      <rect x="16.5" y="11.5" width="34" height="44" rx="3" fill="black" fillOpacity="0.12" />
+
+      {/* Document body */}
+      <rect x="15" y="10" width="34" height="44" rx="3" fill="white" fillOpacity="0.94" />
+
+      {/* Folded corner */}
+      <path d="M41 10 L49 10 L49 18 Z" fill="#6366F1" />
+      <path d="M41 10 L49 18 L41 18 Z" fill="#EBEBF5" fillOpacity="0.85" />
+
+      {/* Content lines */}
+      <rect x="20" y="24" width="14" height="3" rx="1.5" fill="#6366F1" fillOpacity="0.7" />
+      <rect x="20" y="31" width="24" height="2" rx="1" fill="#818CF8" fillOpacity="0.5" />
+      <rect x="20" y="37" width="24" height="2" rx="1" fill="#818CF8" fillOpacity="0.4" />
+      <rect x="20" y="43" width="16" height="2" rx="1" fill="#A9ACFF" fillOpacity="0.35" />
+    </svg>
+  );
+}
+
+// Keep backward-compatible default export name for existing imports
+export default MkLumeIcon;

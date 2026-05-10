@@ -1,0 +1,26 @@
+{
+  "identifier": "default",
+  "description": "Default capabilities for MkLume",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-close",
+    "core:window:allow-destroy",
+    "dialog:default",
+    "shell:allow-execute",
+    "shell:allow-spawn",
+    "shell:allow-stdin-write",
+    "shell:allow-kill",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "mkdocs-runner",
+          "cmd": "binaries/mkdocs-runner",
+          "sidecar": true,
+          "args": true
+        }
+      ]
+    }
+  ]
+}

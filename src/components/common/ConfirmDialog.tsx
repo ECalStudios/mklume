@@ -1,0 +1,45 @@
+interface ConfirmDialogProps {
+  title: string;
+  message: string;
+  confirmLabel: string;
+  cancelLabel: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+  secondaryLabel?: string;
+  onSecondary?: () => void;
+}
+
+function ConfirmDialog({
+  title,
+  message,
+  confirmLabel,
+  cancelLabel,
+  onConfirm,
+  onCancel,
+  secondaryLabel,
+  onSecondary,
+}: ConfirmDialogProps) {
+  return (
+    <div className="dialog-overlay" onClick={onCancel}>
+      <div className="dialog-box" onClick={(e) => e.stopPropagation()}>
+        <h3 className="dialog-title">{title}</h3>
+        <p className="dialog-message">{message}</p>
+        <div className="dialog-actions">
+          <button className="dialog-btn cancel" onClick={onCancel}>
+            {cancelLabel}
+          </button>
+          {secondaryLabel && onSecondary && (
+            <button className="dialog-btn cancel" onClick={onSecondary}>
+              {secondaryLabel}
+            </button>
+          )}
+          <button className="dialog-btn confirm" onClick={onConfirm}>
+            {confirmLabel}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ConfirmDialog;

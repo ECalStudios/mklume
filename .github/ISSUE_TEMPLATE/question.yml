@@ -1,0 +1,25 @@
+name: Question
+description: Ask a question about using MkLume.
+title: "[Question] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about MkLume? Check the [documentation](https://www.ecalstudios.com/mklume/) and [FAQ](https://www.ecalstudios.com/mklume/faq/) first. If your question isn't covered, ask here.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What would you like to know?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Any additional context that might help us answer your question (OS, MkLume version, what you were trying to do).
+    validations:
+      required: false
