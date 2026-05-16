@@ -417,16 +417,25 @@ function parseGridCards(
       const cardContent = trimmed.replace(/^-\s+/, "");
       let icon = "";
       let title = "";
+      let image = "";
+      let imageAlt = "";
 
       // Parse icon + bold title: :icon: **Title**
       const iconTitleMatch = cardContent.match(
         /^(:[a-zA-Z0-9_-]+(?:-[a-zA-Z0-9_-]+)*:)\s+\*\*([^*]+)\*\*$/,
       );
       const titleOnlyMatch = cardContent.match(/^\*\*([^*]+)\*\*$/);
+      // Parse image header: ![Alt](src)
+      const imageMatch = cardContent.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
 
       if (iconTitleMatch) {
         icon = iconTitleMatch[1];
         title = iconTitleMatch[2];
+      } else if (imageMatch) {
+        imageAlt = imageMatch[1];
+        image = imageMatch[2];
+        // Use alt text as title if no separate title found
+        title = imageAlt;
       } else if (titleOnlyMatch) {
         title = titleOnlyMatch[1];
       } else {
@@ -464,7 +473,7 @@ function parseGridCards(
         i++;
       }
 
-      cards.push({ icon, title, description, linkLabel, linkUrl });
+      cards.push({ icon, title, description, linkLabel, linkUrl, ...(image ? { image, imageAlt } : {}) });
       continue;
     }
     i++;
@@ -584,8 +593,13 @@ export function blocksToMarkdown(blocks: VisualBlock[]): string {
         parts.push('<div class="grid cards" markdown>');
         parts.push("");
         for (const card of block.cards) {
-          const iconPart = card.icon ? `${card.icon} ` : "";
-          parts.push(`-   ${iconPart}**${card.title}**`);
+          // Image-based card header: ![alt](src)
+          if (card.image) {
+            parts.push(`-   ![${card.imageAlt || card.title}](${card.image})`);
+          } else {
+            const iconPart = card.icon ? `${card.icon} ` : "";
+            parts.push(`-   ${iconPart}**${card.title}**`);
+          }
           parts.push("");
           parts.push("    ---");
           parts.push("");

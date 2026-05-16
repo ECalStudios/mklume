@@ -41,7 +41,7 @@ function TopBar({
             {project ? project.site_name : "MkLume"}
           </span>
         </div>
-        <span className="topbar-version">v1.0.0</span>
+        <span className="topbar-version">v1.0.1</span>
       </div>
 
       <div className="topbar-right">

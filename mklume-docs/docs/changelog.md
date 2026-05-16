@@ -1,6 +1,24 @@
 # Changelog
 
-## 1.0.0 — Upcoming
+## 1.0.1 — Unreleased
+
+Visual mode rendering and editing polish patch.
+
+- Improved Visual mode rendering for MkDocs Material card grids.
+- Added real image thumbnail rendering in Visual mode where image paths can be resolved.
+- Improved card image fit/cropping to better match MkDocs Material output.
+- Improved rendering of inline links/images inside visual cards.
+- Improved spacing for card descriptions and link rows.
+- Improved Preview rendering for card descriptions.
+- Improved icon shortcode rendering in Visual mode and Preview mode.
+- Added icon insertion through Insert menu and slash command in Visual mode.
+- Unsupported icons now show a clean fallback.
+- Improved Visual mode block action button visibility in dark mode.
+- Removed old temporary icon-generation scripts from source.
+- No change to Markdown source format.
+- No change to bundled MkDocs runtime behavior.
+
+## 1.0.0
 
 First public release of MkLume.
 

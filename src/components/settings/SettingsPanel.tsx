@@ -32,7 +32,7 @@ function SettingsPanel({
   const [mkdocsTestResult, setMkdocsTestResult] = useState<string | null>(null);
   const [mkdocsTestError, setMkdocsTestError] = useState<string | null>(null);
   const [isTesting, setIsTesting] = useState(false);
-  const [appVersion, setAppVersion] = useState("1.0.0");
+  const [appVersion, setAppVersion] = useState("1.0.1");
   const [recoveryCount, setRecoveryCount] = useState(0);
   const [backupCount, setBackupCount] = useState(0);
   const [clearMsg, setClearMsg] = useState<string | null>(null);

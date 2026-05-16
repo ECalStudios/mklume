@@ -44,7 +44,8 @@ type AddBlockType =
   | "table"
   | "code"
   | "frontmatter"
-  | "raw";
+  | "raw"
+  | "icon";
 
 function autoGrow(el: HTMLTextAreaElement) {
   el.style.height = "auto";
@@ -59,12 +60,43 @@ function useAutoGrow(value: string) {
   return ref;
 }
 
-const INLINE_RE = /(\*\*(.+?)\*\*|\*(.+?)\*|`([^`]+)`|:(material|fontawesome|simple|octicons|emoji)-[a-zA-Z0-9-]+:)/g;
+const INLINE_RE = /(\!\[([^\]]*)\]\(([^)]+)\)|\[([^\]]+)\]\(([^)]+)\)|\*\*(.+?)\*\*|\*(.+?)\*|~~(.+?)~~|`([^`]+)`|:(material|fontawesome|simple|octicons|emoji)-[a-zA-Z0-9-]+:)/g;
+
+/**
+ * Convert plain-text strings in a ReactNode array so that `\n` becomes
+ * `<br />` elements.  Non-string nodes pass through unchanged.
+ */
+function expandNewlines(parts: ReactNode[]): ReactNode[] {
+  const out: ReactNode[] = [];
+  let brKey = 0;
+  for (const part of parts) {
+    if (typeof part === "string" && part.includes("\n")) {
+      const lines = part.split("\n");
+      lines.forEach((line, i) => {
+        if (i > 0) out.push(<br key={`br-${brKey++}`} />);
+        if (line) out.push(line);
+      });
+    } else {
+      out.push(part);
+    }
+  }
+  return out;
+}
 
 function renderInlineMarkdown(text: string): ReactNode {
   INLINE_RE.lastIndex = 0;
   if (!INLINE_RE.test(text)) {
     INLINE_RE.lastIndex = 0;
+    // Still handle newlines even in plain text
+    if (text.includes("\n")) {
+      const lines = text.split("\n");
+      const parts: ReactNode[] = [];
+      lines.forEach((line, i) => {
+        if (i > 0) parts.push(<br key={`br-${i}`} />);
+        if (line) parts.push(line);
+      });
+      return <>{parts}</>;
+    }
     return text;
   }
   INLINE_RE.lastIndex = 0;
@@ -80,12 +112,34 @@ function renderInlineMarkdown(text: string): ReactNode {
       parts.push(text.slice(lastIndex, match.index));
     }
     const full = match[0];
-    if (match[2] !== undefined) {
-      parts.push(<strong key={key++}>{match[2]}</strong>);
-    } else if (match[3] !== undefined) {
-      parts.push(<em key={key++}>{match[3]}</em>);
-    } else if (match[4] !== undefined) {
-      parts.push(<code key={key++} className="visual-inline-code">{match[4]}</code>);
+    if (full.startsWith("![") && match[3] !== undefined) {
+      // Inline image: ![alt](src) → show as image indicator
+      const alt = match[2] || "";
+      parts.push(
+        <span key={key++} className="visual-inline-image" title={full}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ verticalAlign: "middle", opacity: 0.5, marginRight: 3 }}>
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          <span style={{ opacity: 0.7 }}>{alt || "image"}</span>
+        </span>
+      );
+    } else if (match[4] !== undefined && match[5] !== undefined) {
+      // Inline link: [text](url) → styled link
+      parts.push(
+        <span key={key++} className="visual-inline-link" title={match[5]}>
+          {renderInlineMarkdown(match[4])}
+        </span>
+      );
+    } else if (match[6] !== undefined) {
+      parts.push(<strong key={key++}>{renderInlineMarkdown(match[6])}</strong>);
+    } else if (match[7] !== undefined) {
+      parts.push(<em key={key++}>{renderInlineMarkdown(match[7])}</em>);
+    } else if (match[8] !== undefined) {
+      parts.push(<del key={key++}>{match[8]}</del>);
+    } else if (match[9] !== undefined) {
+      parts.push(<code key={key++} className="visual-inline-code">{match[9]}</code>);
     } else if (ICON_SHORTCODE_REGEX.test(full)) {
       ICON_SHORTCODE_REGEX.lastIndex = 0;
       parts.push(<IconShortcode key={key++} shortcode={full} size={16} />);
@@ -98,7 +152,10 @@ function renderInlineMarkdown(text: string): ReactNode {
     parts.push(text.slice(lastIndex));
   }
 
-  return parts.length === 1 ? parts[0] : <>{parts}</>;
+  // Expand \n in plain-text segments into <br /> elements
+  const expanded = expandNewlines(parts);
+
+  return expanded.length === 1 ? expanded[0] : <>{expanded}</>;
 }
 
 function VisualEditor({ content, onChange, docsDir, pageRelativePath }: VisualEditorProps) {
@@ -308,6 +365,9 @@ function VisualEditor({ content, onChange, docsDir, pageRelativePath }: VisualEd
       case "raw":
         newBlock = { id, type: "raw", markdown: "" };
         break;
+      case "icon":
+        newBlock = { id, type: "paragraph", text: ":material-book-open-page-variant:" };
+        break;
     }
 
     const copy = [...blocks];
@@ -356,6 +416,7 @@ function VisualEditor({ content, onChange, docsDir, pageRelativePath }: VisualEd
       case "code": newBlock = { id, type: "code", language: "", code: "" }; break;
       case "frontmatter": newBlock = { id, type: "frontmatter", raw: '---\ntitle: Page Title\ndescription: ""\n---' }; break;
       case "raw": newBlock = { id, type: "raw", markdown: "" }; break;
+      case "icon": newBlock = { id, type: "paragraph", text: ":material-book-open-page-variant:" }; break;
     }
     copy.splice(idx, 0, newBlock);
     commit(copy);
@@ -586,6 +647,7 @@ const blockIcons: Record<string, ReactNode> = {
   code: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>,
   frontmatter: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16"/><path d="M4 10h16"/><path d="M4 14h10"/></svg>,
   raw: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>,
+  icon: <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3Z"/></svg>,
 };
 
 // ── Add Block Menu ────────────────────────────────────
@@ -634,6 +696,7 @@ const addBlockCategories: AddBlockCategory[] = [
       { type: "image", label: "Image", desc: "Image reference", aliases: ["img","photo","picture"] },
       { type: "button", label: "Button", desc: "Material button link", aliases: ["btn","link","cta"] },
       { type: "grid-cards", label: "Grid Cards", desc: "Card grid layout", aliases: ["cards","grid"] },
+      { type: "icon", label: "Icon", desc: "Material icon shortcode", aliases: ["shortcode","emoji","material"] },
     ],
   },
   {
@@ -1051,6 +1114,8 @@ function BlockRenderer({
         <GridCardsBlock
           cards={block.cards}
           onUpdate={(cards) => onUpdate({ cards })}
+          docsDir={docsDir}
+          pageRelativePath={pageRelativePath}
         />
       )}
       {block.type === "content-tabs" && (
@@ -1669,14 +1734,68 @@ function DefinitionListBlock({
   );
 }
 
+// ── Card Image Preview ────────────────────────────────
+
+function CardImagePreview({
+  src,
+  alt,
+  docsDir,
+  pageRelativePath,
+}: {
+  src: string;
+  alt: string;
+  docsDir: string;
+  pageRelativePath: string;
+}) {
+  const [imgError, setImgError] = useState(false);
+
+  useEffect(() => {
+    setImgError(false);
+  }, [src]);
+
+  let resolvedSrc = src;
+  if (src && !isExternalUrl(src)) {
+    const resolved = resolveDocsAsset(docsDir, pageRelativePath, src);
+    resolvedSrc = convertFileSrc(resolved.absolutePath);
+  }
+
+  if (!src || imgError) {
+    return (
+      <div className="visual-gc-image-placeholder">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ opacity: 0.35 }}>
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+          <circle cx="8.5" cy="8.5" r="1.5" />
+          <polyline points="21 15 16 10 5 21" />
+        </svg>
+        <span className="visual-gc-image-placeholder-text">{alt || "Image"}</span>
+        <span className="visual-gc-image-placeholder-path" title={src}>{src}</span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="visual-gc-image-thumb">
+      <img
+        src={resolvedSrc}
+        alt={alt}
+        onError={() => setImgError(true)}
+      />
+    </div>
+  );
+}
+
 // ── Grid Cards — preview-first design ─────────────────
 
 function GridCardsBlock({
   cards,
   onUpdate,
+  docsDir,
+  pageRelativePath,
 }: {
   cards: GridCard[];
   onUpdate: (cards: GridCard[]) => void;
+  docsDir: string;
+  pageRelativePath: string;
 }) {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
@@ -1712,15 +1831,23 @@ function GridCardsBlock({
       <div className="visual-grid-cards-list">
         {cards.map((card, idx) => (
           <div key={idx} className="visual-grid-card">
+            {card.image && (
+              <CardImagePreview
+                src={card.image}
+                alt={card.imageAlt || card.title}
+                docsDir={docsDir}
+                pageRelativePath={pageRelativePath}
+              />
+            )}
             <div className="visual-gc-top">
               <div className="visual-gc-icon-wrap">
                 {card.icon ? (
                   <IconShortcode shortcode={card.icon} size={22} />
-                ) : (
+                ) : !card.image ? (
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.25">
                     <rect x="3" y="3" width="18" height="18" rx="2" />
                   </svg>
-                )}
+                ) : null}
               </div>
               <input
                 className="visual-gc-title"
@@ -1786,6 +1913,28 @@ function GridCardsBlock({
             )}
             {expandedCard === idx && (
               <div className="visual-gc-details">
+                {card.image !== undefined && (
+                  <>
+                    <div className="visual-gc-detail-row">
+                      <span className="visual-gc-detail-label">Image</span>
+                      <input
+                        className="visual-field-input mono"
+                        value={card.image || ""}
+                        onChange={(e) => updateCard(idx, { image: e.target.value })}
+                        placeholder="path/to/image.png"
+                      />
+                    </div>
+                    <div className="visual-gc-detail-row">
+                      <span className="visual-gc-detail-label">Image alt</span>
+                      <input
+                        className="visual-field-input"
+                        value={card.imageAlt || ""}
+                        onChange={(e) => updateCard(idx, { imageAlt: e.target.value })}
+                        placeholder="Alt text"
+                      />
+                    </div>
+                  </>
+                )}
                 <div className="visual-gc-detail-row">
                   <span className="visual-gc-detail-label">Icon</span>
                   <IconField

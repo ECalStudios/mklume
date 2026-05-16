@@ -18,6 +18,18 @@ export function preprocessAdmonitions(markdown: string): string {
   return result;
 }
 
+// ── Inline Markdown → HTML (for use inside HTML blocks) ──
+
+function inlineMarkdownToHtml(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/~~(.+?)~~/g, "<del>$1</del>")
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:4px" />')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+
 // ── Grid Cards ──────────────────────────────────────────
 
 function processGridCards(markdown: string): string {
@@ -38,6 +50,7 @@ function processGridCards(markdown: string): string {
         desc: string;
         linkLabel: string;
         linkUrl: string;
+        imageHtml: string;
       }[] = [];
 
       while (i < lines.length && lines[i].trim() !== "</div>") {
@@ -51,15 +64,20 @@ function processGridCards(markdown: string): string {
           const cardLine = lt.replace(/^-\s+/, "");
           let icon = "";
           let title = "";
+          let imageHtml = "";
 
           const iconTitleMatch = cardLine.match(
             /^(:[a-zA-Z0-9_-]+(?:-[a-zA-Z0-9_-]+)*:)\s+\*\*([^*]+)\*\*/,
           );
           const titleOnlyMatch = cardLine.match(/^\*\*([^*]+)\*\*/);
+          const imageMatch = cardLine.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
 
           if (iconTitleMatch) {
             icon = iconTitleMatch[1];
             title = iconTitleMatch[2];
+          } else if (imageMatch) {
+            title = imageMatch[1] || "Image";
+            imageHtml = `<img src="${imageMatch[2]}" alt="${imageMatch[1]}" style="max-width:100%;border-radius:4px;margin-bottom:4px" />`;
           } else if (titleOnlyMatch) {
             title = titleOnlyMatch[1];
           } else {
@@ -87,12 +105,12 @@ function processGridCards(markdown: string): string {
               i++;
               continue;
             }
-            if (desc) desc += " ";
+            if (desc) desc += "<br>";
             desc += bodyLine;
             i++;
           }
 
-          cards.push({ icon, title, desc, linkLabel, linkUrl });
+          cards.push({ icon, title, desc, linkLabel, linkUrl, imageHtml });
           continue;
         }
         i++;
@@ -111,11 +129,12 @@ function processGridCards(markdown: string): string {
               : "";
 
           result.push(`<div class="grid-card-preview">`);
+          if (card.imageHtml) result.push(card.imageHtml);
           result.push(
             `<div class="grid-card-header"><strong>${iconText}${card.title}</strong></div>`,
           );
           if (card.desc)
-            result.push(`<p class="grid-card-desc">${card.desc}</p>`);
+            result.push(`<p class="grid-card-desc">${inlineMarkdownToHtml(card.desc)}</p>`);
           if (linkHtml) result.push(linkHtml);
           result.push(`</div>`);
         }

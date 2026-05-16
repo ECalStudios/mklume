@@ -2,44 +2,60 @@
 
 All notable changes to MkLume will be documented in this file.
 
-MkLume follows semantic versioning where possible:
+## 1.0.1 - Unreleased
 
-- `MAJOR` version for breaking changes
-- `MINOR` version for new features
-- `PATCH` version for bug fixes and small improvements
+### Visual Mode Improvements
+- Improved Visual mode rendering for MkDocs Material card grids.
+- Added real image thumbnail rendering in Visual mode where image paths can be resolved.
+- Added cleaner missing image fallback for Visual mode card images.
+- Improved card image fit/cropping to better match MkDocs Material output.
+- Improved rendering of inline links/images inside visual cards.
+- Improved spacing for card descriptions and Docs/Fab link rows.
+- Improved Preview rendering for card descriptions.
 
-Example:
+### Icon Improvements
+- Improved icon shortcode rendering in Visual mode and Preview mode.
+- Added icon insertion through Insert menu and slash command in Visual mode.
+- Unsupported icons now show a clean fallback instead of dark squares.
+- Added support for additional Material, Octicons, and FontAwesome icon shortcodes.
 
-`1.0.0`
+### UI Improvements
+- Improved Visual mode block action button visibility in dark mode.
+- Block controls now have visible backgrounds and borders for better discoverability.
+- Increased block control hit areas for easier interaction.
 
-## [Unreleased]
+### Cleanup
+- Removed old temporary icon-generation scripts from source.
+- No change to Markdown source format.
+- No change to bundled MkDocs runtime behavior.
 
-### Added
+## 1.0.0 - 2025-05-14
 
-- Initial GitHub repository setup.
-- GPLv3 license.
-- Project README.
-- Contributing guide.
-- Security policy.
-- Repository files for future public release preparation.
+First public release of MkLume.
 
-### Notes
+### Editing
+- Markdown Mode with toolbar, keyboard shortcuts, and Insert menu for Material components.
+- Visual Editor with 18+ block types including admonitions, content tabs, grid cards, and tables.
+- Page Preview with rendered Markdown, images, and Material styling.
+- Site Preview with approximate MkDocs Material site layout.
+- Flexible Split View with four editor/preview combinations.
+- Find and Replace in Markdown Mode.
+- Smart internal link autocomplete.
+- Drag-and-drop image handling with automatic copy to docs/assets/.
 
-- MkLume is preparing for its first public release.
-- Installers are not published yet.
-- Official documentation will be available at: https://www.ecalstudios.com/mklume/
+### Project Management
+- Site Settings editor for mkdocs.yml.
+- Navigation editor with drag-and-drop reordering.
+- Project Health scanner.
+- Extras and Integrations panel.
 
-## [1.0.0] - Coming soon
+### Build and Deploy
+- Build to folder, ZIP, or both with bundled MkDocs runtime.
+- MkDocs Serve for local preview.
+- Git Sync for commit and push.
+- GitHub Pages Deploy Assistant.
 
-### Added
-
-- First public release of MkLume.
-- Local-first desktop workspace for MkDocs Material documentation.
-- Visual project workspace for creating, editing, previewing, and managing documentation projects.
-- Tauri 2 desktop app built with React, TypeScript, and Rust.
-
-### Notes
-
-- Release files and installers will be attached to GitHub Releases when they are ready.
-- Technical support will be handled through GitHub Issues.
-- Ko-fi is available only for supporting development through donations.
+### Reliability
+- Autosave with configurable delay.
+- Backup and recovery system.
+- Offline Quick Help.

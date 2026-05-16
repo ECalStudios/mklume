@@ -34,7 +34,6 @@ https://github.com/ECalStudios/mklume
 - Package files (package.json, Cargo.toml, etc.)
 - Documentation source (mklume-docs/)
 - GitHub templates (.github/)
-- Scripts (scripts/)
 - Sidecar binary: `src-tauri/binaries/mkdocs-runner-x86_64-pc-windows-msvc.exe`
   (Required by Tauri's externalBin for builds)
 - Icon assets (src-tauri/icons/)

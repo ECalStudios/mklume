@@ -58,4 +58,3 @@ tools/mkdocs-runner/*.spec
 
 # Claude worktree metadata
 .claude/
-mklume-docs/*.zip

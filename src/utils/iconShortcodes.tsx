@@ -8,6 +8,7 @@ import {
   Settings,
   CircleAlert,
   CircleCheck,
+  CheckSquare,
   Info,
   Lightbulb,
   Package,
@@ -16,6 +17,10 @@ import {
   ImageIcon,
   Braces,
   ArrowRight,
+  ArrowLeft,
+  ArrowUp,
+  ArrowDown,
+  ExternalLink,
   GitBranch,
   Download,
   Upload,
@@ -50,6 +55,16 @@ import {
   Globe,
   Bookmark,
   MessageSquare,
+  Tag,
+  Zap,
+  Terminal,
+  Copy,
+  Clipboard,
+  RefreshCw,
+  RotateCcw,
+  Share2,
+  LogIn,
+  LogOut,
   type LucideIcon,
 } from "lucide-react";
 
@@ -156,7 +171,34 @@ const ICON_MAP: Record<string, LucideIcon> = {
   "github": GitBranch,
   "gitbook": BookOpen,
   "arrow-right": ArrowRight,
-  "arrow-right-24": ArrowRight,
+  "arrow-left": ArrowLeft,
+  "arrow-up": ArrowUp,
+  "arrow-down": ArrowDown,
+  "link-external": ExternalLink,
+  "external-link": ExternalLink,
+  "checkbox-marked": CheckSquare,
+  "checkbox": CheckSquare,
+  "checkbox-marked-outline": CheckSquare,
+  "tag": Tag,
+  "tag-outline": Tag,
+  "label": Tag,
+  "label-outline": Tag,
+  "flash": Zap,
+  "lightning-bolt": Zap,
+  "zap": Zap,
+  "terminal": Terminal,
+  "console": Terminal,
+  "content-copy": Copy,
+  "copy": Copy,
+  "clipboard": Clipboard,
+  "clipboard-outline": Clipboard,
+  "refresh": RefreshCw,
+  "sync": RefreshCw,
+  "undo": RotateCcw,
+  "share": Share2,
+  "share-variant": Share2,
+  "login": LogIn,
+  "logout": LogOut,
 };
 
 export function resolveIcon(shortcode: string): LucideIcon | null {
@@ -171,7 +213,14 @@ export function resolveIcon(shortcode: string): LucideIcon | null {
     .replace(/^octicons-/, "")
     .replace(/^emoji-/, "");
 
-  return ICON_MAP[name] ?? null;
+  // Try exact match first
+  if (ICON_MAP[name]) return ICON_MAP[name];
+
+  // Strip trailing size suffixes (e.g., -24, -16, -48) and retry
+  const withoutSize = name.replace(/-\d+$/, "");
+  if (withoutSize !== name && ICON_MAP[withoutSize]) return ICON_MAP[withoutSize];
+
+  return null;
 }
 
 export const ICON_PRESETS: IconPreset[] = [
@@ -221,8 +270,17 @@ export const ICON_PRESETS: IconPreset[] = [
   { shortcode: ":material-database:", label: "Database", icon: Database },
   { shortcode: ":material-server:", label: "Server", icon: Server },
   { shortcode: ":material-play:", label: "Play", icon: Play },
+  { shortcode: ":material-checkbox-marked:", label: "Checkbox", icon: CheckSquare },
+  { shortcode: ":material-tag:", label: "Tag", icon: Tag },
+  { shortcode: ":material-flash:", label: "Flash", icon: Zap },
+  { shortcode: ":material-terminal:", label: "Terminal", icon: Terminal },
+  { shortcode: ":material-content-copy:", label: "Copy", icon: Copy },
+  { shortcode: ":material-refresh:", label: "Refresh", icon: RefreshCw },
+  { shortcode: ":material-share-variant:", label: "Share", icon: Share2 },
   { shortcode: ":fontawesome-brands-github:", label: "GitHub", icon: GitBranch },
   { shortcode: ":fontawesome-solid-download:", label: "Download", icon: Download },
+  { shortcode: ":octicons-book-24:", label: "Docs", icon: BookOpen },
+  { shortcode: ":octicons-link-external-16:", label: "External Link", icon: ExternalLink },
   { shortcode: ":octicons-arrow-right-24:", label: "Arrow Right", icon: ArrowRight },
   { shortcode: ":simple-github:", label: "GitHub", icon: GitBranch },
   { shortcode: ":simple-gitbook:", label: "GitBook", icon: BookOpen },

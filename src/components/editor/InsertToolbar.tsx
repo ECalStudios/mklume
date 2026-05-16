@@ -98,6 +98,7 @@ const categories: BlockCategory[] = [
     items: [
       { type: "image", label: "Image", desc: "Insert an image reference", icon: <><rect width="18" height="18" x="3" y="3" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" /></> },
       { type: "link", label: "Link", desc: "Inline hyperlink", icon: <><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></> },
+      { type: "icon", label: "Icon", desc: "Material icon shortcode", icon: <><path d="M12 3 2 12h3v8h6v-6h2v6h6v-8h3L12 3Z" /></> },
       { type: "code", label: "Code Block", desc: "Fenced code block", icon: <><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></> },
     ],
   },

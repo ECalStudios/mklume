@@ -1,5 +1,5 @@
 import { resolveIcon } from "../../utils/iconShortcodes";
-import { CircleDot } from "lucide-react";
+import { Shapes } from "lucide-react";
 
 interface IconShortcodeProps {
   shortcode: string;
@@ -19,9 +19,10 @@ function IconShortcode({ shortcode, size = 16, className = "" }: IconShortcodePr
     );
   }
 
+  // Clean fallback: small generic icon with the shortcode name as tooltip
   return (
-    <span className={`icon-sc icon-sc--fallback ${className}`} title={label}>
-      <CircleDot size={size} strokeWidth={1.5} />
+    <span className={`icon-sc icon-sc--fallback ${className}`} title={shortcode}>
+      <Shapes size={size} strokeWidth={1.5} />
     </span>
   );
 }

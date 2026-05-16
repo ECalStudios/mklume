@@ -25,7 +25,8 @@ export type BlockType =
   | "failure"
   | "bug"
   | "example"
-  | "abstract";
+  | "abstract"
+  | "icon";
 
 export interface InsertResult {
   newContent: string;
@@ -295,6 +296,13 @@ export function insertBlock(
       block = `${pre}\n!!! abstract "Abstract"\n${body}\n\n`;
       cStart = base + 15;
       cEnd = cStart + 8;
+      break;
+    }
+
+    case "icon": {
+      block = `:material-book-open-page-variant:`;
+      cStart = selStart + 1;
+      cEnd = selStart + block.length - 1;
       break;
     }
 

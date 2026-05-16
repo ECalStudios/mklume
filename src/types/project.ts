@@ -41,6 +41,8 @@ export interface ListItem {
 
 export interface GridCard {
   icon: string;
+  image?: string;       // optional image path (from ![alt](src) card headers)
+  imageAlt?: string;     // optional image alt text
   title: string;
   description: string;
   linkLabel: string;

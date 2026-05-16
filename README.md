@@ -21,7 +21,7 @@ MkLume is a local-first desktop workspace for creating, editing, previewing, and
 
 Built with [Tauri](https://tauri.app/), [React](https://react.dev/), and [Rust](https://www.rust-lang.org/).
 
-> **Current release:** v1.0.0 (Windows). macOS and Linux packages are planned.
+> **Current release:** v1.0.1 (Windows). macOS and Linux packages are planned.
 
 ## Features
 

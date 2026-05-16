@@ -4240,24 +4240,27 @@ details.admonition[open] > summary.admonition-title::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 24px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--text-tertiary);
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
   cursor: grab;
-  transition: background 0.12s, color 0.12s;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
   padding: 0;
 }
 
 .vb-drag-handle:hover {
   background: var(--bg-hover);
+  border-color: var(--border);
   color: var(--text-primary);
 }
 
 .vb-drag-handle:active {
   cursor: grabbing;
+  background: var(--accent-subtle);
+  color: var(--accent-hover);
 }
 
 .vb-actions-menu {
@@ -4268,19 +4271,26 @@ details.admonition[open] > summary.admonition-title::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
-  color: var(--text-tertiary);
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
   cursor: pointer;
-  transition: background 0.12s, color 0.12s;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
 
 .vb-actions-trigger:hover {
   background: var(--bg-hover);
+  border-color: var(--border);
   color: var(--text-primary);
+}
+
+.vb-actions-trigger.active {
+  background: var(--accent-subtle);
+  border-color: var(--accent);
+  color: var(--accent-hover);
 }
 
 .vb-actions-dropdown {
@@ -4580,12 +4590,81 @@ h6.visual-heading-text { font-size: 0.88em; }
 }
 
 .visual-paragraph .visual-inline-code,
-.visual-admonition-body--rendered .visual-inline-code {
+.visual-admonition-body--rendered .visual-inline-code,
+.visual-gc-desc .visual-inline-code {
   background: var(--hover-tint-strong);
   padding: 1px 5px;
   border-radius: 3px;
   font-family: var(--font-mono);
   font-size: 0.9em;
+}
+
+/* Inline link in visual blocks */
+.visual-inline-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 2px;
+  cursor: default;
+}
+
+/* Inline image indicator in visual blocks */
+.visual-inline-image {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--hover-tint);
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+/* Grid card image thumbnail */
+.visual-gc-image-thumb {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg-base) 80%, black);
+  max-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-gc-image-thumb img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Grid card missing image placeholder */
+.visual-gc-image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 8px 8px;
+  color: var(--text-tertiary);
+  background: var(--hover-tint);
+  border-radius: 6px 6px 0 0;
+}
+
+.visual-gc-image-placeholder-text {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.visual-gc-image-placeholder-path {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  opacity: 0.4;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .visual-admonition-body--rendered {
@@ -4596,10 +4675,14 @@ h6.visual-heading-text { font-size: 0.88em; }
 .visual-gc-desc {
   color: var(--text-secondary);
   font-size: 13px;
-  line-height: 1.55;
-  padding: 2px 2px;
+  line-height: 1.6;
+  padding: 4px 6px;
   min-height: 20px;
   cursor: text;
+}
+
+.visual-gc-desc .visual-inline-link {
+  font-weight: 500;
 }
 
 .visual-gc-desc-edit {
@@ -5630,7 +5713,8 @@ h6.visual-heading-text { font-size: 0.88em; }
 }
 
 .icon-sc--fallback {
-  opacity: 0.45;
+  opacity: 0.35;
+  color: var(--text-secondary);
 }
 
 /* ── Icon Picker ─────────────────────────────────────── */
@@ -5992,6 +6076,17 @@ h6.visual-heading-text { font-size: 0.88em; }
   font-size: 13px;
   color: var(--text-secondary);
   margin: 0;
+  line-height: 1.6;
+}
+
+.grid-card-desc a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.grid-card-desc a:hover {
+  text-decoration: underline;
 }
 
 .grid-card-link {
