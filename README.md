@@ -15,6 +15,11 @@
   <a href="#license">License</a>
 </p>
 
+![Downloads](https://img.shields.io/github/downloads/ECalStudios/mklume/total)
+![Release](https://img.shields.io/github/v/release/ECalStudios/mklume)
+![License](https://img.shields.io/badge/license-GPLv3-blue)
+![Price](https://img.shields.io/badge/price-Free-brightgreen)
+
 ---
 
 MkLume is a local-first desktop workspace for creating, editing, previewing, and managing [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) documentation projects. It runs on your computer, edits your files directly, and never asks for cloud credentials or tokens.
